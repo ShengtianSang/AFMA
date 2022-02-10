@@ -5,7 +5,7 @@ This is the source code and data for the task of drug discovery as described in 
 ["SemaTyP: a knowledge graph based literature mining method for drug discovery"](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2167-5)
 
 
-<div align=center><img width="800" height="450" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/Figure2_overview.pdf"/></div>
+<div align=center><img width="800" height="450" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/Figure2_overview"/></div>
 
 
 ## Requirements
