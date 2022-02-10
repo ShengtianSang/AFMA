@@ -27,11 +27,9 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
 
         self.conv_img=nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=(7,7),padding=3),
-            # 在camvid上是12,在cityscapes上是20,这个是输出的类别数
             nn.Conv2d(64, 12, kernel_size=(3,3), padding=1)
         )
 
-        # could change: 可以多加几层
         self.conv_feamap=nn.Sequential(
             nn.Conv2d(self._out_channels[self._attention_on_depth], 12, kernel_size=(1, 1), stride=1)
         )
@@ -75,7 +73,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         if self._attention_on_depth == 1:
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
-            # 这部分是可以修改的，可以尝试 1)用点积score 2)加入label的信息
             for i in range(feamap.size()[1]):
                 # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
                 # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
@@ -100,7 +97,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         if self._attention_on_depth == 2:
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
-            # 这部分是可以修改的，可以尝试 1)用点积score 2)加入label的信息
             for i in range(feamap.size()[1]):
                 # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
                 # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
@@ -111,22 +107,9 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
                 unfold_feamap = self.unfold(feamap[:, i:i + 1, :, :])
                 unfold_feamap = self.resolution_trans(unfold_feamap.transpose(-1, -2)).transpose(-1, -2)
 
-                #print(ini_img[:, i:i + 1, :, :].size())
-                #print(unfold_img.size())
-                #print(feamap[:, i:i + 1, :, :].size())
-                #print(unfold_feamap.size())
-                #torch.Size([5, 1, 480, 640])
-                #torch.Size([5, 3072, 100])
-                #torch.Size([5, 1, 120, 160])
-                #torch.Size([5, 100, 192])
-
                 att = torch.matmul(unfold_img, unfold_feamap) / (self.patch_size * self.patch_size)
-                #print(att.size())
-                #torch.Size([5, 3072, 192])
 
                 att=torch.unsqueeze(att,1)
-                #print(att.size())
-                #torch.Size([5, 1, 3072, 192])
 
                 attentions.append(att)
 
@@ -139,11 +122,7 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         if self._attention_on_depth == 3:
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
-            # 这部分是可以修改的，可以尝试 1)用点积score 2)加入label的信息
             for i in range(feamap.size()[1]):
-                # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
-                # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
-                # scores = torch.sigmoid(torch.matmul(unfold_img, unfold_feamap))
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
@@ -164,11 +143,7 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         if self._attention_on_depth == 4:
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
-            # 这部分是可以修改的，可以尝试 1)用点积score 2)加入label的信息
             for i in range(feamap.size()[1]):
-                # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
-                # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
-                # scores = torch.sigmoid(torch.matmul(unfold_img, unfold_feamap))
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
@@ -189,11 +164,7 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         if self._attention_on_depth == 5:
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
-            # 这部分是可以修改的，可以尝试 1)用点积score 2)加入label的信息
             for i in range(feamap.size()[1]):
-                # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
-                # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
-                # scores = torch.sigmoid(torch.matmul(unfold_img, unfold_feamap))
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
