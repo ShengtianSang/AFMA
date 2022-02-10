@@ -1,11 +1,7 @@
 # Small-Object Sensitive Segmentation Using Across Feature Map Attention
 
 This is the source code for the method as described in our paper:
-**Small-Object Sensitive Segmentation Using Across Feature Map Attention**. The lines 81-139 of model/encoder/resnet.py are about how to insert AFMA into the encoder of the existing segmentation models. You can apply CELT on your own models, which is a very easy idea to implement.
-
-This is the source code and data for the task of drug discovery as described in our paper:
-["SemaTyP: a knowledge graph based literature mining method for drug discovery"](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2167-5)
-
+**Small-Object Sensitive Segmentation Using Across Feature Map Attention**. The lines 23-182 of models/attonimage/encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map. The files with *_decoder* suffix in the **deeplabv3 **,  **fpn **,  **linknet **,  **manet **,  **pan **,  **pspnet **,  **unet **,  **unetplusplus** folders are the steps to combine AFMA to the existing model.  You can apply AFMA on your own models, which is a very easy idea to implement.
 
 <div align=center><img width="1200" height="460" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/overview.jpg"/></div>
 <p align="left">
