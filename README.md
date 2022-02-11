@@ -13,7 +13,10 @@ The overview of our method. (a) represents an overview of combining the AFMA met
 The framework of our method. (a) Calculate the Across Feature Map Attention. The inputs are the initial image and i-th layer feature maps of the encoder. (b) Output Modification. The generated AFMA in (a) is used to modify the output of the decoder’s predicted masks. (c) The process of generating gold AFMA.
 </p>
 
-As shown in above framework figure. Our approache mainly consists of three parts. The lines **23-182** of encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map (for part (a) in above figure). The files with **\_decoder.py** suffix in the deeplabv3, fpn, linknet, manet, pan, pspnet, unet, unetplusplus folders are the steps to combine AFMA to the existing model (for part (b) in above figure). AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different layers of the encoder’s feature maps. 
+As shown in above framework figure. Our approache mainly consists of three parts:
+* The lines **23-182** of encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map (for part (a) in above figure). 
+* The files with **\_decoder.py** suffix in the deeplabv3, fpn, linknet, manet, pan, pspnet, unet, unetplusplus folders are the steps to combine AFMA to the existing model (for part (b) in above figure). AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different layers of the encoder’s feature maps. 
+* The **MyLoss_correction.py** in utils is for calculating the gold standard AFMA and training loss (for part(c) in above figure).
 
 ## Requirements
 * albumentations==1.0.0
@@ -30,8 +33,10 @@ As shown in above framework figure. Our approache mainly consists of three parts
 ## Data
 
 In order to use the code, you have to provide 
-* [Theraputic Target Database](http://db.idrblab.net/ttd/full-data-download)  You don't need to download by yourself, I have uploaded all the TTD 2016 version in *<./data/TTD>*. 
+* [CamViD](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/)  You don't need to download by yourself, I have uploaded all the TTD 2016 version in *<./data/TTD>*. 
 * [SemedDB](https://skr3.nlm.nih.gov/SemMedDB/) **You need to download from [here](https://pan.baidu.com/s/1zuOELNGAua6i523_nLK6mw)** with password:1234 to obtain the whole knowledge graph. After downloading the "predications.txt" file, please replace the file *<./data/SemedDB/predications.txt>*. with this **new** downloaded file. 
+
+In order to make it easier for the readers to reproduce and understand the code, I have provided a small amount of example data used in our experiment under the **dataset** folder, where provides six training, validation and test images for the CamVid.
 
 ## Run the codes
 Install the environment.
@@ -48,12 +53,6 @@ Train and test the model.
 ```bash
 python main.py
 ```
-
-## Illustration of feature selection
-<div align=center><img width="800" height="300" src="https://github.com/ShengtianSang/SemaTyP/blob/main/figures/Illustration_of_Feature_selection.jpg"/></div>
-<p align="center">
-An illustration of the features constructed in our work.
-</p>
 
 
 ## File declaration
