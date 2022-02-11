@@ -58,7 +58,7 @@ In order to make it easier for the readers to reproduce and understand the code,
 
 **models/pspnet**：the decoder and segmentation part of the pspnet_afma model.
 
-**main.py**: The Unet model with CELT method, which is used for CamVid dataset. You can change this file to test other models and datasets.
+**main.py**: The codes for training, validating and testing.
 
 ## Run the codes
 Install the environment.
