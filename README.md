@@ -5,20 +5,27 @@ This is the source code for the method as described in our paper:
 
 <div align=center><img width="1200" height="420" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/overview.jpg"/></div>
 <p align="left"> 
-<font size=2>The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. It can be observed that the AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different  layers of the encoder’s feature maps. </font>
+The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. 
 </p>
-
-The lines 23-182 of models/attonimage/encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map. The files with *_decoder* suffix in the **deeplabv3 **,  **fpn **,  **linknet **,  **manet **,  **pan **,  **pspnet **,  **unet **,  **unetplusplus** folders are the steps to combine AFMA to the existing model.  You can apply AFMA on your own models, which is a very easy idea to implement.
 
 <div align=center><img width="1200" height="600" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/method.jpg"/></div>
 <p align="left"> 
 The framework of our method. (a) Calculate the Across Feature Map Attention. The inputs are the initial image and i-th layer feature maps of the encoder. (b) Output Modification. The generated AFMA in (a) is used to modify the output of the decoder’s predicted masks. (c) The process of generating gold AFMA.
 </p>
 
+As shown in above framework figure. Our approache mainly consists of three parts. The lines **23-182** of encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map (for part (a) in above figure). The files with **\_decoder.py** suffix in the deeplabv3, fpn, linknet, manet, pan, pspnet, unet, unetplusplus folders are the steps to combine AFMA to the existing model (for part (b) in above figure). AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different layers of the encoder’s feature maps. 
+
 ## Requirements
-* scikit-learn
-* numpy
-* tqdm
+* albumentations==1.0.0
+* inplace_abn==1.1.0
+* matplotlib==3.4.2
+* numpy==1.22.2
+* opencv_python_headless==4.5.2.54
+* pretrainedmodels==0.7.4
+* segmentation_models_pytorch==0.2.0
+* torch==1.8.0
+* torchvision==0.9.0
+
 
 ## Data
 
@@ -63,37 +70,6 @@ An illustration of the features constructed in our work.
 
 **main.py**：used to train and test the models
 
-
-# CELT: Using feature layer interactions to improve semantic segmentation models
-
-<p float="center">
-  <img width="185" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/MANet.gif"/>
-  &nbsp;
-  &nbsp;
-  <img width="185" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/Unet.gif"/> 
-    &nbsp;
-    &nbsp;
-  <img width="170" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/PSPnet.gif"/>
-    &nbsp;
-    &nbsp;
-  <img width="205" height="175" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/FeaturePN.gif"/>
-    &nbsp;
-    &nbsp;
-  <img width="185" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/Unet%2B%2B.gif"/>
-     &nbsp;
-    &nbsp;
-  <img width="190" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/DeepLabV3.gif"/>
-     &nbsp;
-    &nbsp;
-  <img width="180" height="180" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/Linknet.gif"/>
-     &nbsp;
-    &nbsp;
-  <img width="170" height="200" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/PAN.gif"/>
-</p>
-
-<p align="center">
-  <img width="500" height="70" src="https://github.com/Temporaryanonymous/CELT/blob/main/figure/Figure%20Legend.jpg">
-</p>
 
 This is the source code for the method as described in our paper:
 **CELT: Using feature layer interactions to improve semantic segmentation models**. The lines 81-139 of Architecture/encoder/resnet.py are about how to insert CELT into the encoder of the existing segmentation models. You can apply CELT on your own models, which is a very easy idea to implement.
