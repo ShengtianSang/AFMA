@@ -4,8 +4,8 @@ This is the source code for the method as described in our paper:
 **Small-Object Sensitive Segmentation Using Across Feature Map Attention**. 
 
 <div align=center><img width="1200" height="420" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/overview.jpg"/></div>
-<p align="left">
-The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. It can be observed that the AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different  layers of the encoder’s feature maps.
+<p align="left"> 
+<font size=2>The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. It can be observed that the AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different  layers of the encoder’s feature maps. </font>
 </p>
 
 The lines 23-182 of models/attonimage/encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map. The files with *_decoder* suffix in the **deeplabv3 **,  **fpn **,  **linknet **,  **manet **,  **pan **,  **pspnet **,  **unet **,  **unetplusplus** folders are the steps to combine AFMA to the existing model.  You can apply AFMA on your own models, which is a very easy idea to implement.
