@@ -5,7 +5,7 @@ This is the source code for the method as described in our paper:
 
 <div align=center><img width="1200" height="420" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/overview.jpg"/></div>
 <p align="left"> 
-The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. 
+The overview of our method. (a) represents an overview of combining the AFMA method with a general semantic segmentation method. The encoder of the segmentation model is input to the AFMA method, and its output is applied to the output of the segmentation method. (b-i) presents a detailed illustration of combining the AFMA method with different semantic segmentation models. 
 </p>
 
 <div align=center><img width="1200" height="600" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/method.jpg"/></div>
