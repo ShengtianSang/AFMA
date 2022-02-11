@@ -73,16 +73,6 @@ def confusion_matrix_fn(pr, gt):
         if i not in cm:
             #cm[i]={"TP":0,"FP":0,"TN":0,"FN":0}
             cm[i] = {}
-            #去掉一幅图像中不存在某类的ground truth和prediction的计算，如果不加入if这个语句的话，那这种情况的预测iou=1(是错误的)
-            #if torch.sum(gt[:, i, :, :]) == 0 :
-            #    print("\nground truth 是0")
-
-            #if torch.sum(pr[:, i, :, :]) == 0:
-            #    print("\nprediction 是0")
-
-            #if torch.sum(gt[:, i, :, :]) == 0 and torch.sum(pr[:, i, :, :]) == 0:
-            #    print("\n出现不存在的情况")
-            #    continue
 
             pred=pr[:, i, :, :]
             target=gt[:, i, :, :]
