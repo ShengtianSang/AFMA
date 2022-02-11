@@ -59,8 +59,6 @@ class CrossEntropyLoss(nn.CrossEntropyLoss, base.Loss):
 class MyLoss(base.Loss):
     def __init__(self,weight=None):
         super().__init__()
-        #self.loss=CrossEntropyLoss()
-        #self.ls = nn.LogSoftmax(dim=-3)
         self.nll = nn.NLLLoss(weight=weight)
 
     def forward(self, y_pr, y_gt):
@@ -89,9 +87,7 @@ class MyLoss_correction(base.Loss):
         for param in conv_feamap_size.parameters():
             param.requires_grad = False
 
-
         y_gt_conv=conv_feamap_size(y_gt)/(2 ** self.att_depth*2 ** self.att_depth)
-        #y_gt_conv = conv_feamap_size(y_gt)
 
         attentions_gt=[]
 
@@ -109,55 +105,7 @@ class MyLoss_correction(base.Loss):
         loss_entropy=self.nll(y_pr,y_gt)
         #loss_mse=self.mseloss(attentions,attentions_gt)/torch.numel(attentions)
         loss_mse = self.mseloss(attentions, attentions_gt)
-        """
-        #############################################
-        figure, axarr = plt.subplots(3, 4)
-        figure.suptitle("Encoder中的attentions")
-        temp_att = torch.squeeze(attentions).to("cpu").detach()
-        temp_att_gt = torch.squeeze(attentions_gt).to("cpu").detach()
-        total=temp_att.size()[-1]
-        width=1
-        height=total
-        while True:
-            if int(height*2) == int(width*3):
-                break
-            else:
-                total = total/2
-                height=total
-                width = width*2
-
-        width=int(width)
-        height=int(height)
-
-        cate=0
-        for i in range(3):
-            for j in range(4):
-                cate=i*4+j
-                axarr[i, j].imshow(temp_att[cate, 40, :].view(width, height).numpy(),vmin=0,vmax=1)
-                #axarr[i, j * 2].set_title(str(round(torch.max(temp_att[cate, i * 20 + j * 50, :]).item(), 5)) + "  " + str(
-                #   round(torch.min(temp_att[cate, 0, :]).item(), 5)))
-                #axarr[i, j*2+1].imshow(temp_att_gt[cate, i * 20 + j * 5, :].view(width, height).numpy())
-                #axarr[i, j * 2+1].set_title(str(round(torch.max(temp_att_gt[cate, i * 20 + j * 50, :]).item(), 5)) + "  " + str(
-                #    round(torch.min(temp_att_gt[cate, i * 20 + j * 50, :]).item(), 5)))
-                axarr[i, j].axis('off')
-        plt.show()
-        ##############################################
-
-        cate=0
-        for i in range(3):
-            for j in range(4):
-                cate=i*4+j
-                axarr[i, j].imshow(temp_att[cate, 0, :].view(width, height).numpy(),vmin=0,vmax=)
-                #axarr[i, j * 2].set_title(str(round(torch.max(temp_att[cate, i * 20 + j * 50, :]).item(), 5)) + "  " + str(
-                #   round(torch.min(temp_att[cate, 0, :]).item(), 5)))
-                #axarr[i, j*2+1].imshow(temp_att_gt[cate, i * 20 + j * 5, :].view(width, height).numpy())
-                #axarr[i, j * 2+1].set_title(str(round(torch.max(temp_att_gt[cate, i * 20 + j * 50, :]).item(), 5)) + "  " + str(
-                #    round(torch.min(temp_att_gt[cate, i * 20 + j * 50, :]).item(), 5)))
-                axarr[i, j].axis('off')
-        plt.show()
-        ##############################################        
         
-        """
         loss=5*loss_entropy+loss_mse
 
         return loss
