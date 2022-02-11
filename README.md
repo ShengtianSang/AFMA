@@ -14,7 +14,7 @@ The framework of our method. (a) Calculate the Across Feature Map Attention. The
 </p>
 
 As shown in above framework figure. Our approache mainly consists of three parts:
-* The lines **23-182** of encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map (for part (a) in above figure). 
+* The lines **23-176** of encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map (for part (a) in above figure). 
 * The files with **\_decoder.py** suffix in the deeplabv3, fpn, linknet, manet, pan, pspnet, unet, unetplusplus folders are the steps to combine AFMA to the existing model (for part (b) in above figure). AFMA approach is adaptable to different types of architectures of various semantic segmentation models and can work on different layers of the encoder’s feature maps. 
 * The **MyLoss_correction.py** in utils is for calculating the gold standard AFMA and training loss (for part(c) in above figure).
 
@@ -28,7 +28,6 @@ As shown in above framework figure. Our approache mainly consists of three parts
 * segmentation_models_pytorch==0.2.0
 * torch==1.8.0
 * torchvision==0.9.0
-
 
 ## Data
 * [CamViD](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/) The Cambridge-driving Labeled Video Database (CamVid) is the first collection of videos with object class semantic labels, complete with metadata.. 
