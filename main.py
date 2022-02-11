@@ -100,7 +100,7 @@ if __name__ == '__main__':
          'test_soft_iou'])
 
     # get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)返回 被偏函数(partial)后的preprocess_input(x,...)函数,其作用是对输入的x进行归一化和(x-mean)/std
-    preprocessing_fn = get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
+    preprocessing_fn = get_preprocessing_fn(ENCODER)
 
     if data_type_selected == "camvid":
         CamVidtrans = CamVidTransform()
