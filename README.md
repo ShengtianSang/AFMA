@@ -10,7 +10,7 @@ This is the source code for the method as described in our paper:
 
 The lines 23-182 of models/attonimage/encoder_channelatt_img.py are used for calculating AFMA between original image and any layer of feature map. The files with *_decoder* suffix in the **deeplabv3 **,  **fpn **,  **linknet **,  **manet **,  **pan **,  **pspnet **,  **unet **,  **unetplusplus** folders are the steps to combine AFMA to the existing model.  You can apply AFMA on your own models, which is a very easy idea to implement.
 
-<div align=center><img width="1200" height="420" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/method.jpg"/></div>
+<div align=center><img width="1200" height="600" src="https://github.com/ShengtianSang/AFMA/blob/main/figures/method.jpg"/></div>
 <p align="left"> 
 The framework of our method. (a) Calculate the Across Feature Map Attention. The inputs are the initial image and i-th layer feature maps of the encoder. (b) Output Modification. The generated AFMA in (a) is used to modify the output of the decoder’s predicted masks. (c) The process of generating gold AFMA.
 </p>
