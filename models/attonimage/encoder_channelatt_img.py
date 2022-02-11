@@ -74,9 +74,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
             for i in range(feamap.size()[1]):
-                # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
-                # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
-                # scores = torch.sigmoid(torch.matmul(unfold_img, unfold_feamap))
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
@@ -98,9 +95,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
             for i in range(feamap.size()[1]):
-                # unfold_feamap=self.unfold(feamap[:,i:i+1,:,:]).transpose(-1,-2)
-                # scores=torch.reciprocal(torch.cdist(unfold_img, unfold_feamap, p=2) + 0.0000001)
-                # scores = torch.sigmoid(torch.matmul(unfold_img, unfold_feamap))
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
