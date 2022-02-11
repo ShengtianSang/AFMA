@@ -67,7 +67,7 @@ pip install -r requirements.txt
 ```
 
 ```bash
-Replace the **util**s file in SMP (segmentation_models_pytorch) with the **utils** file in this code
+Replace the utils file in SMP (segmentation_models_pytorch) with the utils file of our codes.
 ```
 
 Train and test the model.
