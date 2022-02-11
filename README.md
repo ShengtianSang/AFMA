@@ -31,12 +31,34 @@ As shown in above framework figure. Our approache mainly consists of three parts
 
 
 ## Data
-
-In order to use the code, you have to provide 
-* [CamViD](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/)  You don't need to download by yourself, I have uploaded all the TTD 2016 version in *<./data/TTD>*. 
-* [SemedDB](https://skr3.nlm.nih.gov/SemMedDB/) **You need to download from [here](https://pan.baidu.com/s/1zuOELNGAua6i523_nLK6mw)** with password:1234 to obtain the whole knowledge graph. After downloading the "predications.txt" file, please replace the file *<./data/SemedDB/predications.txt>*. with this **new** downloaded file. 
+* [CamViD](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/) The Cambridge-driving Labeled Video Database (CamVid) is the first collection of videos with object class semantic labels, complete with metadata.. 
+* [CityScapes](https://www.cityscapes-dataset.com/dataset-overview/) CityScapes is a new large-scale dataset that contains a diverse set of stereo video sequences recorded in street scenes from 50 different cities. 
+* [Caltech-UCSD Birds](http://www.vision.caltech.edu/visipedia/CUB-200.html) Caltech-UCSD Birds 200 (CUB-200) is an image dataset with photos of 200 bird species (mostly North American). 
+* [LiTS](https://www.kaggle.com/andrewmvd/liver-tumor-segmentation) 130 CT scans for segmentation of the liver as well as tumor lesions.
+* [SkinLesion](https://challenge2018.isic-archive.com/) Skin Lesion Analysis towards Melanoma Detection Challenge Part I.
 
 In order to make it easier for the readers to reproduce and understand the code, I have provided a small amount of example data used in our experiment under the **dataset** folder, where provides six training, validation and test images for the CamVid.
+
+## File declaration
+**models/attonimage**：contains the codes for calculating AFMA.
+
+**models/manet**：the decoder and segmentation part of the manet_afma model.
+
+**models/unet**： the decoder and segmentation part of the unet_afma model.
+
+**models/unetplusplus**：the decoder and segmentation part of the unet\+\+_afma model.
+
+**models/deeplabv3**：the decoder and segmentation part of the deeplabv3_afma model.
+
+**models/fpn**：the decoder and segmentation part of the fpn_afma model.  
+
+**models/pan**：the decoder and segmentation part of the pan_afma model.
+
+**models/linknet**：the decoder and segmentation part of the linknet_afma model.
+
+**models/pspnet**：the decoder and segmentation part of the pspnet_afma model.
+
+**main.py**: The Unet model with CELT method, which is used for CamVid dataset. You can change this file to test other models and datasets.
 
 ## Run the codes
 Install the environment.
@@ -44,70 +66,11 @@ Install the environment.
 pip install -r requirements.txt
 ```
 
-Construct training and test data.
 ```bash
-python experimental_data.py
+Replace the **util**s file in SMP (segmentation_models_pytorch) with the **utils** file in this code
 ```
 
 Train and test the model.
 ```bash
 python main.py
-```
-
-
-## File declaration
-
-**data/SemmedDB**： contains all relations extracted from SemmedDB, which are used for constructing the Knowledge Graph in our experiment. The whole "predications.txt" contains **39,133,975** relations, we just leave a small sample "predications.txt" file here which contain **100** relation. The whole "predications.txt" file coule be downloaded from 
-  
-**data/TTD**： contains the drug, target and disease relations retrieved from Theraputic Target Database.
-    
-**experimental_data.py**: constuct the drug-target-disease associations from TTD and Knowledge Graph.
-
-**knowledge_graph.py**: construct the Knowledge Graph used in our experiment.
- 
-**data_loader.py**：used to load traing and test data.
-
-**main.py**：used to train and test the models
-
-
-This is the source code for the method as described in our paper:
-**CELT: Using feature layer interactions to improve semantic segmentation models**. The lines 81-139 of Architecture/encoder/resnet.py are about how to insert CELT into the encoder of the existing segmentation models. You can apply CELT on your own models, which is a very easy idea to implement.
-
-## Data
-
-In order to make it easier for the readers to reproduce and understand the code, we have provided a small amount of example data used in our experiment under the **image_samples** folder, where each dataset (CamVid, Skin Lesion, CUB Birds) provides five training, validation and test images.
-
-
-## File declaration
-
-
-**Architecture/encoder**：contains the encoding part of all eight CELT plugged models.
-
-**Architecture/manet**：the decoder and segmentation part of the manet_celt model.
-
-**Architecture/unet**： the decoder and segmentation part of the unet_celt model.
-
-**Architecture/unetplusplus**：the decoder and segmentation part of the unet++_celt model.
-
-**Architecture/deeplabv3**：the decoder and segmentation part of the deeplabv3_celt model.
-
-**Architecture/fpn**：the decoder and segmentation part of the fpn_celt model.  
-
-**Architecture/pan**：the decoder and segmentation part of the pan_celt model.
-
-**Architecture/linknet**：the decoder and segmentation part of the linknet_celt model.
-
-**Architecture/pspnet**：the decoder and segmentation part of the pspnet_celt model.
-
-**CELT_Unet_CamVid.py**: The Unet model with CELT method, which is used for CamVid dataset. You can change this file to test other models and datasets.
-
-## Run the codes
-Install the environment.
-```bash
-pip install -r requirements.txt
-```
-
-Train and test the model.
-```bash
-python CELT_Unet_CamVid.py
 ```
