@@ -65,10 +65,6 @@ Install the environment.
 pip install -r requirements.txt
 ```
 
-```bash
-Replace the utils file in SMP (segmentation_models_pytorch) with the utils file of our codes.
-```
-
 Train and test the model.
 ```bash
 python main.py
