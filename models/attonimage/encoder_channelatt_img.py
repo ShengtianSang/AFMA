@@ -7,31 +7,27 @@ from torchvision.models.resnet import Bottleneck
 from pretrainedmodels.models.torchvision_models import pretrained_settings
 
 from ..base._base import EncoderMixin
-import matplotlib.pyplot as plt
 
 class Encoder_channelatt_img(ResNet, EncoderMixin):
-    def __init__(self, out_channels, patch_size=10, depth=5, att_depth=1, **kwargs):
+    def __init__(self, out_channels, classes_num=12, patch_size=10, depth=5, att_depth=1, **kwargs):
         super().__init__(**kwargs)
         self._depth = depth
         self._attention_on_depth=att_depth
 
-        # out_channels: (3, 64, 256, 512, 1024, 2048)
         self._out_channels = out_channels
 
         self._in_channels = 3
 
-        #self.patch_size=10
         self.patch_size = patch_size
-
-        #self.conv_img=nn.Conv2d(3, 1, kernel_size=(1, 1), stride=1)
 
         self.conv_img=nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=(7,7),padding=3),
-            nn.Conv2d(64, 12, kernel_size=(3,3), padding=1)
+
+            nn.Conv2d(64, classes_num, kernel_size=(3,3), padding=1)
         )
 
         self.conv_feamap=nn.Sequential(
-            nn.Conv2d(self._out_channels[self._attention_on_depth], 12, kernel_size=(1, 1), stride=1)
+            nn.Conv2d(self._out_channels[self._attention_on_depth], classes_num, kernel_size=(1, 1), stride=1)
         )
 
         self.unfold = nn.Unfold(kernel_size=(self.patch_size, self.patch_size), stride=(self.patch_size, self.patch_size))
@@ -41,7 +37,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
             nn.Linear(2*self.patch_size * self.patch_size, self.patch_size * self.patch_size, bias=False),
             nn.ReLU()
         )
-
 
         del self.fc
         del self.avgpool
@@ -57,7 +52,6 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
         ]
 
     def forward(self, x):
-        #fold_layer = torch.nn.Fold(output_size=(x.size()[-2], x.size()[-1]), kernel_size=(self.patch_size, self.patch_size), stride=(self.patch_size, self.patch_size))
         stages = self.get_stages()
         features = []
         attentions=[]
@@ -74,6 +68,7 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
             for i in range(feamap.size()[1]):
+
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
@@ -138,6 +133,7 @@ class Encoder_channelatt_img(ResNet, EncoderMixin):
             feamap = self.conv_feamap(x) / (2 ** self._attention_on_depth * 2 ** self._attention_on_depth)
 
             for i in range(feamap.size()[1]):
+
                 unfold_img = self.unfold(ini_img[:, i:i + 1, :, :]).transpose(-1, -2)
                 unfold_img = self.resolution_trans(unfold_img)
 
